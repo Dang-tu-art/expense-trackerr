@@ -1,0 +1,157 @@
+.expense-list {
+  overflow-x: auto;
+}
+
+.expense-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+  font-size: 0.95em;
+}
+
+.expense-table thead {
+  background-color: transparent;
+}
+
+.expense-table th {
+  color: #475569;
+  letter-spacing: 0.05em;
+}
+
+.expense-table th {
+  padding: 15px;
+  text-align: left;
+  font-weight: 600;
+  color: #333;
+  text-transform: uppercase;
+  font-size: 0.85em;
+  letter-spacing: 0.5px;
+}
+
+.expense-table td {
+  padding: 15px;
+  vertical-align: middle;
+  background: white;
+  border: 1px solid rgba(226,232,240,0.8);
+}
+
+.expense-row {
+  border-radius: 20px;
+}
+
+.expense-row:hover td {
+  background-color: #f8fafc;
+}
+
+.date-cell {
+  color: #667eea;
+  font-weight: 500;
+}
+
+.amount-cell {
+  color: #d32f2f;
+  font-weight: 600;
+}
+
+.category-cell {
+  background-color: #eef2ff;
+  padding: 8px 14px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.9em;
+  color: #4338ca;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-btn,
+.delete-btn,
+.save-btn,
+.cancel-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85em;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.edit-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.delete-btn:hover {
+  background-color: #da190b;
+  transform: translateY(-2px);
+}
+
+.save-btn {
+  background-color: #2196f3;
+  color: white;
+}
+
+.save-btn:hover {
+  background-color: #0b7dda;
+}
+
+.cancel-btn {
+  background-color: #9e9e9e;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background-color: #757575;
+}
+
+.expense-table input[type="text"],
+.expense-table input[type="date"],
+.expense-table input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+  font-size: 1.1em;
+}
+
+@media (max-width: 768px) {
+  .expense-table {
+    font-size: 0.8em;
+  }
+
+  .expense-table th,
+  .expense-table td {
+    padding: 10px 5px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+
+  .edit-btn,
+  .delete-btn {
+    width: 100%;
+  }
+}
