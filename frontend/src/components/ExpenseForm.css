@@ -1,0 +1,123 @@
+.expense-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  color: #0f172a;
+}
+
+.expense-form-header h2 {
+  font-size: 1.35rem;
+  margin-bottom: 8px;
+  color: #111827;
+}
+
+.input-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.input-column {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.fieldset-card {
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 18px 16px;
+  box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.18);
+}
+
+.fieldset-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 14px;
+  color: #1f2937;
+}
+
+.radio-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.radio-item input {
+  width: 18px;
+  height: 18px;
+}
+
+.custom-category {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px 14px;
+  border: 1px solid rgba(148, 163, 184, 0.5);
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-group label {
+  font-weight: 700;
+  color: #334155;
+}
+
+.form-group input {
+  padding: 14px 16px;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  border-radius: 14px;
+  font-size: 1rem;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  background: #f8fafc;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.12);
+}
+
+.submit-btn {
+  width: 140px;
+  align-self: flex-start;
+  padding: 14px 20px;
+  background: #facc15;
+  color: #0f172a;
+  border: none;
+  border-radius: 14px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 28px rgba(250, 204, 21, 0.2);
+}
+
+@media (max-width: 1024px) {
+  .input-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .input-row {
+    gap: 16px;
+  }
+
+  .submit-btn {
+    width: 100%;
+  }
+}
