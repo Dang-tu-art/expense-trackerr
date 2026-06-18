@@ -5,12 +5,24 @@ function ExpenseList({ expenses, onDelete, onUpdate }) {
   const [editingId, setEditingId] = useState(null);
   const [editData, setEditData] = useState({});
 
+  // Khai báo danh sách danh mục đồng bộ với Database và Form thêm mới
+  const categories = [
+    { id: 1, name: 'Đi lại' },
+    { id: 2, name: 'Ăn uống' },
+    { id: 3, name: 'Bạn bè' },
+    { id: 4, name: 'Mua sắm' },
+    { id: 5, name: 'Tiền phòng' },
+    { id: 6, name: 'Khác' }
+  ];
+
   const handleEditClick = (expense) => {
     setEditingId(expense.id);
     setEditData({
       ...expense,
       date: expense.date ? expense.date.split('T')[0] : '',
-      amount: typeof expense.amount === 'number' ? expense.amount : parseFloat(expense.amount)
+      amount: typeof expense.amount === 'number' ? expense.amount : parseFloat(expense.amount),
+      // Lưu lại category_id hiện tại khi nhấn sửa, mặc định là 1 nếu chưa có
+      category_id: expense.category_id || 1 
     });
   };
 
@@ -18,12 +30,32 @@ function ExpenseList({ expenses, onDelete, onUpdate }) {
     const { name, value } = e.target;
     setEditData(prev => ({
       ...prev,
-      [name]: name === 'amount' ? (value === '' ? '' : parseFloat(value)) : value
+      // Ép kiểu số cho amount và category_id
+      [name]: name === 'amount' 
+        ? (value === '' ? '' : parseFloat(value)) 
+        : name === 'category_id' 
+          ? Number(value) 
+          : value
     }));
   };
 
   const handleSaveEdit = (id) => {
-    onUpdate(id, editData);
+    if (!editData.amount || !editData.description || !editData.category_id) {
+      alert('Vui lòng nhập đầy đủ thông tin');
+      return;
+    }
+
+    // Đảm bảo số tiền lưu xuống luôn là số âm theo đúng logic tính toán của App.js
+    const finalAmount = editData.amount < 0 ? editData.amount : -Math.abs(editData.amount);
+
+    // Chỉ gửi các trường database yêu cầu
+    onUpdate(id, {
+      amount: finalAmount,
+      description: editData.description,
+      category_id: editData.category_id,
+      date: editData.date
+    });
+    
     setEditingId(null);
   };
 
@@ -32,11 +64,13 @@ function ExpenseList({ expenses, onDelete, onUpdate }) {
   };
 
   const formatCurrency = (amount) => {
+    // Biến đổi số âm thành số dương để hiển thị trên bảng cho đẹp mắt
+    const displayAmount = Math.abs(amount);
     return new Intl.NumberFormat('vi-VN', {
       style: 'currency',
       currency: 'VND',
       minimumFractionDigits: 0
-    }).format(amount);
+    }).format(displayAmount);
   };
 
   const formatDate = (dateString) => {
@@ -81,18 +115,23 @@ function ExpenseList({ expenses, onDelete, onUpdate }) {
                     />
                   </td>
                   <td>
-                    <input
-                      type="text"
-                      name="category"
-                      value={editData.category}
+                    {/* Đã sửa: Chuyển đổi Input Text thành Select Dropdown */}
+                    <select
+                      name="category_id"
+                      value={editData.category_id}
                       onChange={handleEditChange}
-                    />
+                      className="edit-category-select"
+                    >
+                      {categories.map(cat => (
+                        <option key={cat.id} value={cat.id}>{cat.name}</option>
+                      ))}
+                    </select>
                   </td>
                   <td>
                     <input
                       type="number"
                       name="amount"
-                      value={editData.amount}
+                      value={Math.abs(editData.amount)} // Hiển thị số dương cho người dùng dễ sửa
                       onChange={handleEditChange}
                     />
                   </td>
@@ -115,7 +154,8 @@ function ExpenseList({ expenses, onDelete, onUpdate }) {
                 <>
                   <td className="date-cell">{formatDate(expense.date)}</td>
                   <td className="description-cell">{expense.description}</td>
-                  <td className="category-cell">{expense.category}</td>
+                  {/* Đã sửa: Hiển thị tên danh mục thông qua trường category_name từ câu lệnh JOIN */}
+                  <td className="category-cell">{expense.category_name || 'Không xác định'}</td>
                   <td className="amount-cell">{formatCurrency(expense.amount)}</td>
                   <td className="action-buttons">
                     <button
@@ -144,5 +184,4 @@ function ExpenseList({ expenses, onDelete, onUpdate }) {
     </div>
   );
 }
-
 export default ExpenseList;
