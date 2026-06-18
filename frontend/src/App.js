@@ -105,8 +105,6 @@ function App() {
     };
   }, []);
 
-  
-
   // Fetch all expenses
   const fetchExpenses = useCallback(async () => {
     setLoading(true);
@@ -149,7 +147,6 @@ function App() {
     }
   }, [selectedPeriod, token, fetchSummary]);
 
-  // Add expense
   const handleAuthSuccess = (authToken, authUser) => {
     localStorage.setItem('expenseToken', authToken);
     localStorage.setItem('expenseUser', JSON.stringify(authUser));
@@ -267,9 +264,11 @@ function App() {
           {recentExpenses.length > 0 ? (
             recentExpenses.map((item) => (
               <div key={item.id} className="review-item">
-                <div className="review-icon">{categoryIcons[item.category] || '💼'}</div>
+                {/* Đã sửa: Đổi item.category thành item.category_name */}
+                <div className="review-icon">{categoryIcons[item.category_name] || '💼'}</div>
                 <div className="review-info">
-                  <div className="review-title">{item.description || item.category}</div>
+                  {/* Đã sửa: Đổi item.category thành item.category_name */}
+                  <div className="review-title">{item.description || item.category_name}</div>
                   <div className="review-value">{formatCurrency(Number(item.amount), 'exceptZero')}</div>
                 </div>
               </div>
