@@ -28,9 +28,6 @@ CREATE TABLE categories (
 -- =========================
 -- TRANSACTIONS
 -- =========================
--- =========================
--- TRANSACTIONS (Đã sửa)
--- =========================
 CREATE TABLE transactions (
     id INT AUTO_INCREMENT PRIMARY KEY,
     amount DECIMAL(10,2) NOT NULL,
